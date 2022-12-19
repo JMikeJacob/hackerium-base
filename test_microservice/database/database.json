@@ -1,0 +1,95 @@
+{
+    "default": {
+        "driver": "mysql",
+        "host": {"ENV": "DB_HOST"},
+        "user": {"ENV": "DB_USER"},
+        "password": {"ENV": "DB_PASSWORD"},
+        "database": {"ENV": "DB_DATABASE"},
+        "encoding": "utf8",
+        "multipleStatements": true
+    },
+
+    "default_for_key_value_store": {
+        "driver": "mysql",
+        "host": {"ENV": "DB_HOST"},
+        "user": {"ENV": "DB_USER"},
+        "password": {"ENV": "DB_PASSWORD"},
+        "multipleStatements": true
+    },
+
+    "default_for_event_store": {
+        "driver": "mysql",
+        "host": {"ENV": "DB_HOST"},
+        "user": {"ENV": "DB_USER"},
+        "password": {"ENV": "DB_PASSWORD"},
+        "multipleStatements": true
+    },
+
+    "default_for_write": {
+        "driver": "mysql",
+        "host": {"ENV": "DB_HOST"},
+        "user": {"ENV": "DB_USER"},
+        "password": {"ENV": "DB_PASSWORD"},
+        "multipleStatements": true
+    },
+
+    "default_for_create_database": {
+        "driver": "mysql",
+        "host": "mysql",
+        "user": "root",
+        "password": "root",
+        "encoding": "utf8",
+        "multipleStatements": true
+    },
+
+    "create_key_value_store": {
+        "driver": "mysql",
+        "host": "mysql",
+        "user": "root",
+        "password": "root",
+        "multipleStatements": true
+    },
+    
+    "update_key_value_store": {
+        "driver": "mysql",
+        "host": {"ENV": "DB_HOST"},
+        "user": {"ENV": "DB_USER"},
+        "password": {"ENV": "DB_PASSWORD"},
+        "database": {"ENV": "KVS_DB"},
+        "multipleStatements": true
+    },
+
+    "create_event_store": {
+        "driver": "mysql",
+        "host": "mysql",
+        "user": "root",
+        "password": "root",
+        "multipleStatements": true
+    },
+
+    "update_event_store": {
+        "driver": "mysql",
+        "host": {"ENV": "DB_HOST"},
+        "user": {"ENV": "DB_USER"},
+        "password": {"ENV": "DB_PASSWORD"},
+        "database": {"ENV": "EVENTSTORE_DB"},
+        "multipleStatements": true
+    },
+
+    "create_write_repository": {
+        "driver": "mysql",
+        "host": "mysql",
+        "user": "root",
+        "password": "root",
+        "multipleStatements": true
+    },
+
+    "update_write_repository": {
+        "driver": "mysql",
+        "host": {"ENV": "DB_HOST"},
+        "user": {"ENV": "DB_USER"},
+        "password": {"ENV": "DB_PASSWORD"},
+        "database": {"ENV": "WRITE_DB"},
+        "multipleStatements": true
+    }
+}

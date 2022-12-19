@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="page-header">
+        <h2>Recommended Jobs</h2>
+    </div>
+    <div *ngIf="!loading">
+        <div *ngIf="jobs.length > 0">
+            <div class="row">
+                <div class="col">
+                    <div class="list-group">
+                        <ng-container *ngFor="let job of jobs">
+                            <div class="list-group-item rounded-0">
+                                <app-seeker-recommended-ad [job]=job></app-seeker-recommended-ad>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-paginator #paginator [length]="count"
+                        [pageSize]="20"
+                        [pageIndex]="page - 1"
+                        (page)= "pageEvent = loadPage($event)"
+                    ></mat-paginator>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="jobs.length === 0">
+            <p>No matching jobs found.</p>
+        </div>
+    </div>
+</div>

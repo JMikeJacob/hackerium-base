@@ -1,0 +1,49 @@
+p {
+    margin: 0px;
+}
+
+.pending, .testing, .reviewing, .interviewing {
+    background-color: #B3AE36;
+    color: #f5f5f5;
+    padding: 0.5em;
+    border-radius: 5px;
+}
+
+.accepted {
+    background-color: #A7D6B6;
+    color: #f5f5f5;
+    padding: 0.5em;
+    border-radius: 5px;
+
+}
+
+.rejected {
+    background-color: #B3544C;
+    color: #f5f5f5;
+    padding: 0.5em;
+    border-radius: 5px;
+
+}
+
+.closed {
+    background-color: #CCD2D4;
+    color: #2F3030;
+    padding: 0.5em;
+    border-radius: 5px;
+
+}
+
+@media only screen and (max-width: 576px) {
+    .btn {
+        margin-top:1em;
+    }
+}
+
+.container-fluid {
+    background-color: white;
+    padding: 1.5em 2em;
+}
+
+.container-fluid:hover {
+    background-color: #f5f5f5;
+}

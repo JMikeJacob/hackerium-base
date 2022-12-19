@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="page-header">
+        <h2>Your Tests</h2>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <button class="btn btn-primary" routerLink="/employer/tests/create">Create New Test</button>
+        </div>
+    </div>
+    <br/>
+    <div *ngIf="!loading">
+        <div *ngIf="count > 0">
+            <div class="row">
+                <div class="col">
+                    <div class="list-group">
+                        <ng-container *ngFor="let test of tests">
+                            <div class="list-group-item rounded-0">
+                                <app-test-ad [test]=test></app-test-ad>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                        <button type="button" class="btn btn-outline-primary" [routerLink]="['../', 1]" [disabled]='onFirstPage'>First</button>
+                        <button type="button" class="btn btn-outline-primary" [routerLink]="['../', +page-1]" [disabled]='onFirstPage'>Previous</button>
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{page}}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <ng-container *ngFor='let item of [].constructor(pageCount); let i = index'>
+                                    <a class="dropdown-item" [routerLink]="['../', i+1]">{{i+1}}</a>  
+                                </ng-container>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline-primary" [routerLink]="['../', +page+1]" [disabled]='onLastPage'>Next</button>
+                        <button type="button" class="btn btn-outline-primary" [routerLink]="['../', pageCount]" [disabled]='onLastPage'>Last</button>
+                    </div>  
+                </div>
+            </div>
+        </div>
+        <div *ngIf="count === 0">
+            You don't have any tests.
+        </div>
+    </div>
+</div>

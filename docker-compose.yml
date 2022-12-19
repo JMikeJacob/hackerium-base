@@ -1,0 +1,197 @@
+version: '3'
+
+services:
+
+    mysql:
+        image: mysql:5.7
+        restart: always
+        environment:
+            MYSQL_USER: 'user'
+            MYSQL_PASSWORD: 'root'
+            MYSQL_ROOT_PASSWORD: 'root'
+        ports:
+            - '3306:3306'
+
+    zookeeper:
+        image: wurstmeister/zookeeper
+        ports: 
+            - '2181:2181'
+
+    kafka:
+        image: wurstmeister/kafka
+        ports:
+            - '9092:9092'
+        hostname: kafka
+        environment:
+            KAFKA_CREATE_TOPICS: 'hackerium_commands:20:1,hackerium_events:20:1,account_microservice_commands:20:1,account_microservice_events:20:1,job_microservice_commands:20:1,job_microservice_events:20:1,test_microservice_commands:20:1,test_microservice_events:20:1,test_microservice_engine:20:1,engine_request_topic:20:1'
+            KAFKA_ADVERTISED_HOST_NAME: kafka
+            KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+            KAFKA_ADVERTISED_PORT: 9092
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        depends_on:
+            - 'zookeeper'
+
+    # node:
+    #     command: 'bash start.sh mysql:3306 zookeeper:2181 kafka:9092'
+    #     depends_on: 
+    #         - 'mysql'
+    #     build: ./node
+    #     ports:
+    #         - '3000:3000'
+    #         - '8000:5858'
+    #     environment:
+    #         PORT: '3000'
+    #         KNEX_CLIENT: 'mysql'
+    #         DB_HOST: 'mysql'
+    #         DB_PORT: '3306'
+    #         DB_USER: 'root'
+    #         DB_PASSWORD: 'root'
+    #         DB_DATABASE: 'hackerium'
+    #     links:
+    #         - 'mysql'
+    #     volumes:
+    #         - ./node:/app
+
+    account_microservice:
+        command: 'bash start.sh mysql:3306 zookeeper:2181 kafka:9092'
+        depends_on: 
+            - 'mysql'
+        build: ./account_microservice
+        ports:
+            - '3001:3001'
+            - '8001:5858'
+        environment:
+            PORT: '3001'
+            KNEX_CLIENT: 'mysql'
+            DB_HOST: 'mysql'
+            DB_PORT: '3306'
+            DB_USER: 'root'
+            DB_PASSWORD: 'root'
+            DB_DATABASE: 'hackerium_account'
+            EVENTSTORE_DB: 'account_eventstore'
+            KVS_DB: 'account_kvs'
+            WRITE_DB: 'account_write'
+        links:
+            - 'mysql'
+        volumes:
+            - ./account_microservice:/app
+
+    job_microservice:
+        command: 'bash start.sh mysql:3306 zookeeper:2181 kafka:9092'
+        depends_on: 
+            - 'mysql'
+        build: ./job_microservice
+        ports:
+            - '3002:3002'
+            - '8002:5858'
+        environment:
+            PORT: '3002'
+            KNEX_CLIENT: 'mysql'
+            DB_HOST: 'mysql'
+            DB_PORT: '3306'
+            DB_USER: 'root'
+            DB_PASSWORD: 'root'
+            DB_DATABASE: 'hackerium_job'
+            EVENTSTORE_DB: 'job_eventstore'
+            KVS_DB: 'job_kvs'
+            WRITE_DB: 'job_write'
+            AWS_ACCESS_KEY: ''
+            AWS_SECRET_ACCESS_KEY: ''
+            AWS_REGION: 'us-east-1'
+            AWS_S3_BUCKET: ''
+            AWS_S3_ACL: 'public-read'
+        links:
+            - 'mysql'
+        volumes:
+            - ./job_microservice:/app
+    
+    # application_microservice:
+    #     command: 'bash start.sh mysql:3306 zookeeper:2181 kafka:9092'
+    #     depends_on: 
+    #         - 'mysql'
+    #     build: ./application_microservice
+    #     ports:
+    #         - '3003:3003'
+    #         # - '8000:5858'
+    #     environment:
+    #         PORT: '3003'
+    #         KNEX_CLIENT: 'mysql'
+    #         DB_HOST: 'mysql'
+    #         DB_PORT: '3306'
+    #         DB_USER: 'root'
+    #         DB_PASSWORD: 'root'
+    #         DB_DATABASE: 'hackerium'
+    #     links:
+    #         - 'mysql'
+    #     volumes:
+    #         - ./application_microservice:/app
+            
+    test_microservice:
+        command: 'bash start.sh mysql:3306 zookeeper:2181 kafka:9092'
+        depends_on: 
+            - 'mysql'
+        build: ./test_microservice
+        ports:
+            - '3004:3004'
+            - '8003:5858'
+        environment:
+            PORT: '3004'
+            KNEX_CLIENT: 'mysql'
+            DB_HOST: 'mysql'
+            DB_PORT: '3306'
+            DB_USER: 'root'
+            DB_PASSWORD: 'root'
+            DB_DATABASE: 'hackerium_test'
+            EVENTSTORE_DB: 'test_eventstore'
+            KVS_DB: 'test_kvs'
+            WRITE_DB: 'test_write'
+            AWS_ACCESS_KEY: ''
+            AWS_SECRET_ACCESS_KEY: ''
+            AWS_REGION: 'us-east-1'
+            AWS_S3_BUCKET: ''
+            AWS_S3_ACL: 'public-read'
+        links:
+            - 'mysql'
+        volumes:
+            - ./test_microservice:/app
+            
+    push_microservice:
+        command: 'bash start.sh mysql:3306 zookeeper:2181 kafka:9092'
+        depends_on: 
+            - 'mysql'
+        build: ./push_microservice
+        ports:
+            - '3005:3005'
+            - '8004:5858'
+        environment:
+            PORT: '3005'
+            KNEX_CLIENT: 'mysql'
+            DB_HOST: 'mysql'
+            DB_PORT: '3306'
+            DB_USER: 'root'
+            DB_PASSWORD: 'root'
+            DB_EVENTSTORE: 'push_es'
+        links:
+            - 'mysql'
+        volumes:
+            - ./push_microservice:/app
+            
+
+    angular:
+        depends_on:
+            - 'job_microservice'
+            - 'account_microservice'
+            - 'test_microservice'
+            - 'push_microservice'
+        build: ./angular
+        ports:
+            - '4200:4200'
+        links:
+            - 'job_microservice'
+            - 'account_microservice'
+            - 'test_microservice'
+            - 'push_microservice'
+        volumes:
+            - ./angular:/app
+        

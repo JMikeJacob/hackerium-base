@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-4">
+                <a routerLink="../item/{{test.test_id}}">{{test.test_title}}</a><br/>
+                <a routerLink="../../company/{{test.company_name}}">{{test.company_name}}</a><br/>
+                
+        </div>
+        <div class="col-sm-4">
+            <p>Difficulty: {{test.test_difficulty}}<br/>Total Score: {{test.test_total}}</p>
+        </div>
+        <div class="col-sm-4 float-sm-right text-sm-right">
+            <h6 class="font-weight-light" >Updated on {{+test.updated_at | date}}</h6>
+        </div>
+    </div>
+</div>

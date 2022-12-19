@@ -1,0 +1,99 @@
+<div class="container-fluid">
+    <div *ngIf="loading">
+        <div class="jumbotron jumbotron-fluid" style="height:2000px;overflow-y:hidden;">
+            <div class="container">
+                <div class="text-center">
+                    <div class="spinner-border" style="width: 10rem; height: 10rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <p style="font-size:5em;">Loading Test...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+   <div *ngIf="!loading">
+        <div class="row">
+            <div class="col-sm-6 float-sm-left">
+                <button class="btn btn-info" (click)="goBack()">Return to Test List</button>
+            </div>
+            <div class="col-sm-6 float-sm-right text-sm-right">
+                <button class="btn btn-primary" (click)="toEdit()">Edit Test</button>
+                <button class="btn btn-danger" (click)="toDelete()">Delete Test</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2>
+                    {{test.test_title}}
+                    <small class="text-muted"><a [routerLink]="['../../edit', testId]">Edit</a></small>
+                </h2>
+            </div>
+        </div>
+        <dl class="row">
+            <dt class="col-md-2">Difficulty</dt>
+            <dd class="col-md-10">{{test.test_difficulty}}</dd>
+            <hr/>
+            <dt class="col-md-2">Total Score</dt>
+            <dd class="col-md-10">{{test.test_total}}</dd>
+        </dl>
+        <hr/>
+        <dl class="row">
+            <dt class="col-md-2">Test Body</dt>
+            <dd class="col-md-10" style="height:100%">
+                <b>Problem Statement</b>
+                <quill-view [content]="test.test_description.test_body"></quill-view>
+                <b>Function Description</b>
+                <quill-view [content]="test.test_description.test_function_desc"></quill-view>
+                <b>Constraints</b>
+                <quill-view [content]="test.test_description.test_constraints"></quill-view>
+                <b>Input Format for Custom Testing</b>
+                <quill-view [content]="test.test_description.test_input_format"></quill-view>
+            </dd>
+        </dl>
+        <hr/>
+        <dl class="row" *ngFor="let case of test.test_description.test_sample_cases; let i = index">
+            <dt class="col-md-2" >Sample Case {{i}}</dt>
+            <dd class="col-md-10">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <b>Sample Input</b>
+                        <br/>
+                        <textarea [(ngModel)]="case.sampleCaseInput" class="sampleInput" readonly></textarea>
+                    </div>
+                    <div class="col-sm-4">
+                        <b>Sample Output</b>
+                        <br/>
+                        <textarea [(ngModel)]="case.sampleCaseOutput" class="sampleOutput" readonly></textarea>
+                    </div>
+                    <div class="col-sm-4">
+                        <b>Explanation</b>
+                        <br/>
+                        <textarea [(ngModel)]="case.sampleExplanation" class="sampleExplanation" readonly></textarea>
+                    </div>
+                </div>
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-md-2">
+                <label for="selectTestCase">Test Cases ({{test.test_cases.length}})</label>
+                <select class="form-control" id="selectTestCase">
+                    <option *ngFor="let case of test.test_cases; let i = index" (click)="checkTestCase(i)">Test Case {{i}}</option>
+                </select>
+            </dt>
+            <dd class="col-md-10">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <b>Input</b>
+                        <br/>
+                        <textarea [(ngModel)]="testCaseInput" class="sampleInput" readonly></textarea>
+                    </div>
+                    <div class="col-sm-6">
+                        <b>Output</b>
+                        <br/>
+                        <textarea [(ngModel)]="testCaseOutput" class="sampleOutput" readonly></textarea>
+                    </div>
+                </div>
+            </dd>
+        </dl>
+   </div>
+</div>

@@ -1,0 +1,19 @@
+.container {
+    background-color: white;
+}
+
+textarea {
+    font-family: 'Courier New', Courier, monospace;
+    height: 100px;
+    font-size: 0.8em;
+}
+
+#sample-explanation-1, #sample-explanation-2 {
+    font-family: 'Times New Roman', Times, serif;
+    height: 100px;
+    font-size: 0.8em;
+}
+
+.form-check-input-reverse {
+    margin-left: 10px;
+}

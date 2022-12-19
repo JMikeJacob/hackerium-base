@@ -1,0 +1,41 @@
+mat-form-field {
+    width:100%
+}
+
+.btn {
+    margin-bottom:0.5em;
+}
+
+.inputWrapper {
+    height: 36px;
+    width: 88px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.container {
+    background-color: white;
+}
+
+.inputWrapperPhoto {
+    height: 36px;
+    width: 150px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+.fileInput {
+    cursor: pointer;
+    height: 100%;
+    position:absolute;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    /*This makes the button huge. If you want a bigger button, increase the font size*/
+
+    /*Opacity settings for all browsers*/
+    opacity: 0;
+    -moz-opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+}

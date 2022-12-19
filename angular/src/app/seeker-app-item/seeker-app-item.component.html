@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 my-auto">
+                <a routerLink="../../jobs/post/{{app.job_id}}">{{app.job_name}}</a><br/>
+                <a routerLink="../../company/{{app.posted_by_id}}">{{app.company_name}}</a><br/>
+                <p>Applied on {{+app.date_posted * 1000 | date}}</p>
+        </div>
+        <div class="col-sm-6 text-right my-auto" style="margin-top:0.5em;">
+            <div *ngIf="!post_closed">
+                <div *ngIf="app.status!=='testing' && app.status!=='interviewing'">
+                    <span [ngClass]="app.status" class="align-text-middle" >{{app.status | uppercase}}</span>
+                </div>
+                <div *ngIf="app.status==='testing'">
+                    <button class="btn btn-primary" [routerLink]="['../test/answer/']" [queryParams]="{testid:app.test_id, appid:app.app_id}" >TAKE TEST</button>
+                </div>
+                <div *ngIf="app.status==='interviewing'">
+                    <a routerLink="/interview" target="_blank" [queryParams]="{appid:app.app_id}" >
+                        <button class="btn btn-primary">GO TO INTERVIEW</button>
+                    </a>
+                </div>
+            </div>
+            <div *ngIf="post_closed">
+                <span class="closed align-text-middle" >CLOSED</span>
+            </div>
+        </div>
+    </div>
+</div>

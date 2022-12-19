@@ -1,0 +1,122 @@
+.description {
+    white-space: pre;
+}
+
+.qualifications {
+    white-space: pre;
+}
+
+.container-fluid {
+    background-color:white;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#left {
+    height: calc(100vh - 110px);
+    overflow-y: scroll;
+}
+
+#right {
+    height: calc(100vh - 110px);
+    overflow-y: scroll;
+    padding-top: 2em;
+    padding-bottom: 0;
+    max-height: 100%;
+}
+
+.editor-normal {
+    height: 91%;
+}
+
+.editor-terminal {
+    height: 50%;
+    overflow: hidden;
+}
+
+.terminal-collapse {
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.terminal-expand {
+    height: 40%;
+    visibility: visible;
+}
+
+.btn {
+    height: 100%;
+}
+
+.button-row {
+    background-color: #343A40;
+}
+
+.button-toggler {
+    padding: 0;
+}
+
+.card {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    border-right: 0;
+}
+
+.accordion {
+    margin: 0;
+    padding: 0;
+}
+
+.list-group {
+    border-radius: 0;
+}
+
+.list-group-item-action {
+    border-radius: 0;
+}
+
+.test-case-list {
+    overflow-y: scroll;
+}
+
+.invisible {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+.sampleInput {
+    background-color: #79B4BD;
+    padding: 4px;
+    border: none;
+    resize: none;
+    width: 100%;
+    height: 200px;
+}
+
+.sampleOutput {
+    background-color: #79B4BD;
+    padding: 4px;
+    border: none;
+    resize: none;
+    width: 100%;
+}
+
+.sampleExplanation {
+    background-color: white;
+    padding: 4px;
+    border: none;
+    resize: none;
+    width: 100%;
+    height: 150px;
+}
+
+.test-case-list {
+    height:100%;
+    overflow: scroll;
+}

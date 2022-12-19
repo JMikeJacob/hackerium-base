@@ -1,0 +1,13 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6">
+                <a routerLink="/seeker/jobs/post/{{job.job_id}}">{{job.job_name}}</a><br/>
+                <a routerLink="/seeker/company/{{job.posted_by_id}}">{{job.company_name}}</a><br/>
+                <p>{{job.count}} matching tag/s</p>
+        </div>
+        <div class="col-sm-6 float-sm-right text-sm-right"> 
+            <h6 class="font-weight-light">Posted on {{job.date_posted | date}}</h6>
+            <h6 class="font-weight-light" >Open until {{job.date_deadline | date}}</h6>
+        </div>
+    </div>
+</div>

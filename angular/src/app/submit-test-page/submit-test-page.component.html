@@ -1,0 +1,23 @@
+<!-- <div class="jumbotron card">
+    <div class="text-center">
+        <h2 class="card-"
+    </div>
+</div> -->
+<div class="container-fluid" style="padding-top:2em">
+    <div *ngIf='!loading'>
+        <div class="card mx-auto align-middle text-center" style="width: 25rem;">
+            <div class="card-body">
+                <svg width="8em" height="8em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d ="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                    <path fill-rule="evenodd" d ="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
+                </svg>
+                <h5 class="card-title">You finished the test!</h5>
+                <!-- <h6 class="card-subtitle mb-2 text-muted">{{appData.test_title}} </h6> -->
+                <h6 class="card-subtitle mb-2 text-muted">Applying for: {{appData.job_name}} </h6>
+                <!-- <h6 class="card-subtitle mb-2 text-muted">Time: 2 hours</h6> -->
+                <p class="card-text">Please wait for the results of your application as your solution is currently being reviewed by the company. Good luck!</p>
+                <button routerLink="../../../1" class="btn btn-secondary">Return to Apps Page</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+.link-text {
+    font-size:1em;
+    padding:0;
+}
+
+svg {
+    position: relative;
+    display:inline;
+}
+
+p {
+    position: relative;
+    display:inline;
+}

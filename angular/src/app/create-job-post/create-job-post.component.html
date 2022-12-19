@@ -1,0 +1,138 @@
+<div class="container border rounded" style="padding:2em;">
+    <div class="page-header">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-secondary ml-auto" (click)="goBack()">Cancel</button>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <h3>Create Job Ad</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+          <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+              <mat-form-field>
+                  <input matInput id="job_name" formControlName="job_name" type="text" placeholder="Job Name" required>
+
+                <mat-error *ngIf="job_name.errors?.required">
+                        This is a required field.
+                </mat-error>
+              </mat-form-field>
+              <br/>
+              <mat-form-field>
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type" id="type" name="type" required>
+                    <mat-option *ngFor="let type of type_options" [value]="type">
+                        {{type[1]}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="type.errors?.required">
+                        This is a required field.
+                </mat-error>
+              </mat-form-field>
+              <br/>
+              <mat-form-field>
+                <mat-label>Level</mat-label>
+                <mat-select formControlName="level" id="level" name="level" required>
+                    <mat-option *ngFor="let level of level_options" [value]="level">
+                        {{level[1]}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="level.errors?.required">
+                        This is a required field.
+                </mat-error>
+              </mat-form-field>
+              <br/>
+              <mat-form-field>
+                <mat-label>Field</mat-label>
+                <mat-select formControlName="field" id="field" name="field" required>
+                    <mat-option *ngFor="let field of field_options" [value]="field">
+                        {{field[1]}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="field.errors?.required">
+                        This is a required field.
+                </mat-error>
+              </mat-form-field>
+              <br/>
+              <mat-form-field>
+                <mat-label>Job Location</mat-label>
+                <input matInput formControlName="job_location" id="job_location" name="job_location" required>
+                <mat-error *ngIf="job_location.errors?.required">
+                        This is a required field.
+                </mat-error>
+              </mat-form-field>
+              <br/>
+                <div>
+                    <mat-label>Description</mat-label>
+                    <quill-editor
+                        #descriptionQuill
+                        [styles]="{'height':'15em'}"
+                        [formControl]="jobForm.controls['description']">
+                    </quill-editor>
+                    <mat-error *ngIf="description.errors?.required">
+                            This is a required field.
+                    </mat-error>
+                </div>
+              <br/>
+                <mat-label>Qualifications</mat-label>
+                <quill-editor
+                    #qualificationsQuill
+                    [styles]="{'height':'15em'}"
+                    [formControl]="jobForm.controls['qualifications']">
+                </quill-editor>
+                <mat-error *ngIf="qualifications.errors?.required">
+                        This is a required field.
+                </mat-error>
+                <br/>
+              <mat-form-field>
+                <mat-label>Deadline</mat-label>
+                <input matInput type="date" id="date_deadline" formControlName="date_deadline" name="date_deadline" placeholder="Choose a date" required/>
+                <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker> -->
+                <mat-error *ngIf="date_deadline.errors?.required">
+                    This is a required field. Date format is yyyy/MM/dd.
+                </mat-error>
+                <mat-error *ngIf="date_deadline.errors?.invalidDate && !date_deadline.errors?.required">
+                    Deadline should be at least one day after today.
+                </mat-error>
+              </mat-form-field>
+
+              <div formArrayName="skills">
+                    <h4>Skills</h4>
+                    <button class="btn btn-link" type="button" (click)="addSkill()">Add Skill</button>
+                    <mat-error *ngIf="skills.errors?.duplicateValue">
+                        Duplicate/empty tags are not allowed.
+                    </mat-error>
+                    <div *ngFor="let item of skills.controls; let i = index">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <mat-form-field>
+                                    <select matNativeControl formControlName="{{i}}" id="skill" name="skill">
+                                        <ng-container *ngFor="let skill of skill_options">
+                                            <option [value]="skill">
+                                                {{skill}}
+                                            </option>
+                                        </ng-container>
+                                    </select>
+                                    <mat-error *ngIf="skills.controls[i].errors?.required">
+                                        Empty tags are not allowed!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-link" type="button" (click)="delSkill(i)">Remove</button>
+                            </div>
+                        </div>     
+                    </div>
+                </div>
+
+              <button class="btn btn-primary" type="submit" [disabled]="!jobForm.valid">Submit</button>
+          </form>
+        </div>
+    </div>
+</div>

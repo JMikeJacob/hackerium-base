@@ -1,0 +1,18 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6">
+                <a routerLink="../post/{{job.job_id}}">{{job.job_name}}</a><br/>
+                <a routerLink="../../company/{{job.posted_by_id}}">{{job.company_name}}</a><br/>
+                <p class="font-weight-light">{{ job.job_location }}</p>
+        </div>
+        <div class="col-sm-6 float-sm-right text-sm-right">
+            <h6 class="font-weight-light">Posted on {{+job.date_posted*1000 | date}}</h6>
+            <h6 class="font-weight-light" >Open until {{+job.date_deadline*1000 | date}}</h6>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-sm-12'>
+            <p class='font-weight-light tags'>Tags: {{tags}}</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<app-employer-navbar class="sticky-top d-block" style="margin-bottom:2em;"></app-employer-navbar>
+<div *ngIf="applyCount > 0 && router.url.split('/')[2] !=='apps'" class="alert alert-success alert-dismissible fade show full-width" role="alert">
+    You have {{applyCount}} new application<span *ngIf="applyCount>1">s</span>! <a href="javascript:;" (click)="followLink()">Click here to view.</a>
+    <button type="button" class="close" (click)="removeNotifs()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<router-outlet></router-outlet>

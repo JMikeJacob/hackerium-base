@@ -1,0 +1,106 @@
+<div class="container">
+    <div class="row" style="margin:0.5em;">
+        <div class="col-sm-6 float-sm-left">
+            <button class="btn btn-info" (click)="goBack()">Return to Board</button>
+        </div>
+        <ng-container *ngIf="applied==='no'">
+            <div class="col-sm-6">
+                <button class="btn btn-margin btn-primary float-sm-right" [disabled]="applied==='yes'" (click)="apply()">
+                    Apply For Job
+                </button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="applied==='yes' && app_status==='pending'">
+            <div class="col-sm-6 float-sm-right text-sm-right">
+                <button class="btn btn-primary" [disabled]="applied==='yes'" (click)="apply()">
+                    Already Applied
+                </button>
+                <button class="btn btn-danger" *ngIf="applied==='yes'" (click)="withdraw()">
+                    Withdraw
+                </button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="applied==='yes' && app_status!=='pending'">
+            <div class="col-sm-6 float-sm-right text-sm-right">
+                <button class="btn btn-primary" [disabled]="applied==='yes'" (click)="apply()">
+                    {{app_status | uppercase}}
+                </button>
+            </div>
+        </ng-container>
+    </div>
+    <div *ngIf="no_job">
+        <div class="row">
+            <div class="col">
+                Job post does not exist.
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!no_job">
+        <div class="row border border-black" style="padding:1em;margin:1em;">
+            <div class="col">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3>{{job.job_name}}</h3>
+                    </div>
+                    <div class="col-sm-6 float-sm-right text-sm-right">
+                        <h6 class="font-weight-light">Posted on {{+job.date_posted*1000 | date}}</h6>
+                        <h6 class="font-weight-light" >Open until {{+job.date_deadline*1000 | date}}</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a routerLink="../../../company/{{job.posted_by_id}}" [queryParams]="{from:'post'}">{{job.company_name}}</a><br/>
+                        <p>{{job.job_location}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border border-black" style="padding:1em;margin:1em;">
+            <div class="col-sm-4">
+                <p>Type: {{job.type}}</p>
+            </div>
+            <div class="col-sm-4">
+                <p>Level: {{job.level}}</p>
+            </div>
+            <div class="col-sm-4">
+                <p>Field: {{job.field}}</p>
+            </div>
+        </div>
+        <div class="row border border-black" style="padding:1em;margin:1em;">
+            <div class="col">
+                <h5>Job Description</h5>
+                <div class = "description">
+                    <quill-view [content]="job.description"></quill-view>
+                </div>
+            </div>
+        </div>
+        <div class="row border border-black" style="padding:1em;margin:1em;">
+            <div class="col">
+                <h5>Qualifications</h5>
+                <div class = "qualifications">
+                    <quill-view [content]="job.qualifications"></quill-view>
+                </div>
+            </div>    
+        </div>
+        <div class="row border border-black" style="padding:1em;margin:1em;">
+            <div class="col">
+                <h5>Skills</h5>
+                <div class = "description">
+                    <p *ngFor="let skill of skills">
+                        {{skill}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row border border-black" style="padding:1em;margin:1em;">
+            <div class="col">
+                <h5>Fields</h5>
+                <div class = "description">
+                    <p *ngFor="let field of fields">
+                        {{field}}
+                    </p>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>

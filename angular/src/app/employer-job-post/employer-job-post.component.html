@@ -1,0 +1,94 @@
+<div class="container">
+    <div *ngIf = "!loading">
+        <div *ngIf="edited" class="alert alert-success alert-dismissible fade show" role="alert">
+            Your job post has been successfully updated!
+            <button type="button" class="close" (click)="edited = false" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 float-sm-left">
+                <button class="btn btn-info" (click)="goBack()">Return to Job Board</button>
+            </div>
+            <div class="col-sm-6 float-sm-right text-sm-right">
+                <button class="btn btn-primary" (click)="toEdit()">Edit Job Post</button>
+                <button class="btn btn-danger" (click)="toDelete()">Delete Job Post</button>
+            </div>
+        </div>
+        <div *ngIf="no_job">
+            <div class="row">
+                <div class="col">
+                    Job post does not exist.
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!no_job">
+            <div class="row border border-black" style="padding:1em;margin:1em;">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3>{{job.job_name}}</h3>
+                        </div>
+                        <div class="col-sm-6 float-sm-right text-sm-right">
+                            <h6 class="font-weight-light">Posted on {{+job.date_posted*1000 | date}}</h6>
+                            <h6 class="font-weight-light" >Open until {{+job.date_deadline*1000 | date}}</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>{{job.company_name}}</p>
+                            <p>{{job.job_location}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row border border-black" style="padding:1em;margin:1em;">
+                <div class="col-sm-4">
+                    <p>Type: {{job.type}}</p>
+                </div>
+                <div class="col-sm-4">
+                    <p>Level: {{job.level}}</p>
+                </div>
+                <div class="col-sm-4">
+                    <p>Field: {{job.field}}</p>
+                </div>
+            </div>
+            <div class="row border border-black" style="padding:1em;margin:1em;">
+                <div class="col">
+                    <h5>Job Description</h5>
+                    <div class = "description">
+                        <quill-view [content]="job.description"></quill-view>
+                    </div>
+                </div>
+            </div>
+            <div class="row border border-black" style="padding:1em;margin:1em;">
+                <div class="col">
+                    <h5>Qualifications</h5>
+                    <div class = "qualifications">
+                        <quill-view [content]="job.qualifications"></quill-view>
+                    </div>
+                </div>    
+            </div>
+            <div class="row border border-black" style="padding:1em;margin:1em;">
+                <div class="col">
+                    <h5>Skills</h5>
+                    <div class = "description">
+                        <p *ngFor="let skill of skills">
+                            {{skill}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row border border-black" style="padding:1em;margin:1em;">
+                <div class="col">
+                    <h5>Fields</h5>
+                    <div class = "description">
+                        <p *ngFor="let field of fields">
+                            {{field}}
+                        </p>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 float-sm-left">
+            <h2>Jobseeker Profile</h2>
+        </div>
+        <div class="col-sm-6">
+            <button class="btn btn-link float-sm-right" (click)="goBack()">Return to Board</button>
+        </div>
+    </div>
+    <div class="row border border-black" style="padding:1em;margin:1em;">
+        <div class="col-sm-4">
+            <div *ngIf="pic_url !== 'none'">
+                <div *ngIf="pic_url !== 'none'">
+                    <img img class="img img-responsive img-thumbnail" (error)="updateUrl($event)" style="width:180px;height:180px;"  [src]="pic_url" alt="profile picture" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            {{seeker.first_name}} {{seeker.last_name}} <br/>
+            {{seeker.contact_no}} <br/>
+            {{seeker.email}} <br/>
+            Preferred Level: {{seeker.level}}
+        </div>
+    </div>
+    <div class="row border border-black" style="padding:1em;margin:1em;">
+        <div class="col-sm-12">
+            Education: {{seeker.education}}<br/>
+            Birthdate: {{seeker.birthdate | date}} <br/>
+            Gender: {{seeker.gender}} 
+        </div>     
+    </div>
+    <div class="row border border-black" style="padding:1em;margin:1em;">
+        <div class="col">
+            <h5>Resume</h5>
+            <button *ngIf="resume_url!=='none'" class="btn btn-primary" (click)="getResume()">Download Resume</button>
+            <button *ngIf="resume_url==='none'" class="btn btn-primary disabled" [disabled]="true">No Resume Uploaded</button>
+        </div>
+    </div>
+    <div class="row border border-black" style="padding:1em;margin:1em;">
+        <div class="col">
+            <h5>Skills</h5>
+            <div class = "description">
+                <p *ngFor="let skill of skills">
+                    {{skill}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row border border-black" style="padding:1em;margin:1em;">
+        <div class="col">
+            <h5>Fields</h5>
+            <div class = "description">
+                <p *ngFor="let field of fields">
+                    {{field}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

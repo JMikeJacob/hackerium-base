@@ -1,0 +1,157 @@
+<div class="container border rounded" style="padding:2em;">
+    <div class="page-header">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-info" (click)="goBack()">Cancel Edit</button>
+            </div>
+        </div>
+        <h3>Edit Jobseeker Profile</h3>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h6>Change Profile Picture: 
+                            <div  class="inputWrapperPhoto btn btn-link" style="margin:auto;">
+                                Upload Photo
+                                <input class="fileInput" type="file" formControlName="image" (change)="onFileChange($event)" accept="image/jpeg,image/png"/>
+                            </div>
+                        </h6>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom:1em;">
+                    <div class="col-sm-12">
+                        <div *ngIf="pic_url !== 'none'">
+                            <img class="img img-responsive img-thumbnail" (error)="updateUrl($event)" style="width:180px;height:180px;" [src]="pic_url" alt="profile picture" />
+                        </div>
+                        <mat-error *ngIf="image.errors?.invalidFormat">
+                            File must be in .jpeg or .png format.
+                        </mat-error>
+                    </div>
+                </div>
+                <mat-form-field>
+                    <mat-label>Contact Number</mat-label>
+                    <input matInput id="contact_no" formControlName="contact_no" type="text">
+                    <mat-error *ngIf="contact_no.errors?.invalidContact">
+                        Invalid contact number format.
+                    </mat-error>
+                </mat-form-field>
+                <br/>
+                <mat-form-field>
+                    <mat-label>Gender</mat-label>
+                    <select matNativeControl formControlName="gender" id="gender" name="gender">
+                        <option *ngFor="let gender of gender_options" [value]="gender">
+                            {{gender}}
+                        </option>
+                    </select>           
+                </mat-form-field>
+                <br />
+                <mat-form-field>
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput type="date" id="birthdate" formControlName="birthdate" name="birthdate" />
+                    <mat-error *ngIf="birthdate.errors?.invalidDate && !birthdate.errors?.required">
+                        Birthdate should be set on or before the date today.
+                    </mat-error>
+                </mat-form-field>
+                <br />
+                <mat-form-field>
+                    <mat-label>Education</mat-label>
+                    <select matNativeControl formControlName="education" id="education" name="education">
+                        <option *ngFor="let education of education_options" [value]="education">
+                            {{education}}
+                        </option>
+                    </select>
+                </mat-form-field>
+                <br/>
+                <mat-form-field>
+                    <mat-label>Preferred Level</mat-label>
+                    <select matNativeControl formControlName="level" id="level" name="level">
+                        <option *ngFor="let level of level_options" [value]="level">
+                            {{level}}
+                        </option>
+                    </select>
+                </mat-form-field>
+                <br/>
+                <mat-form-field>
+                    <mat-label>Preferred Salary Range</mat-label>
+                    <input matInput type="number" min="0" formControlName="salary_per_month" id="salary_per_month" name="salary_per_month">
+                </mat-form-field>
+                <br />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4>Resume <div class="inputWrapper btn btn-primary">
+                                Upload
+                                <input type="file" class="fileInput" formControlName="resumeControl" (change)="onResumeChange($event)" accept="application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+                            </div>
+                        </h4>
+                        
+                        <p style="overflow:scroll">Current: {{old_resume}}</p>
+                        <p *ngIf="resume !== 'No uploaded resume'" style="overflow:scroll">New: {{resume}}</p>
+                        <mat-error *ngIf="resumeControl.errors?.invalidFormat">
+                            File must be in .pdf or .docx format.
+                        </mat-error>
+                    </div>
+                </div>
+                <div formArrayName="skills">
+                        <h4>Skills</h4>
+                        <button class="btn btn-link" type="button" (click)="addSkill()">Add Skill</button>
+                        <mat-error *ngIf="skills.errors?.duplicateValue">
+                            Duplicate/empty tags are not allowed.
+                        </mat-error>
+                        <div *ngFor="let item of skills.controls; let i = index">
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <mat-form-field>
+                                        <select matNativeControl formControlName="{{i}}" id="skill" name="skill">
+                                            <ng-container *ngFor="let skill of skill_options">
+                                                <option [value]="skill">
+                                                    {{skill}}
+                                                </option>
+                                            </ng-container>
+                                        </select>
+                                        <mat-error *ngIf="skills.controls[i].errors?.required">
+                                            Empty tags are not allowed!
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button class="btn btn-link" type="button" (click)="delSkill(i)">Remove</button>
+                                </div>
+                            </div>     
+                        </div>
+                    </div>
+                    <div formArrayName="fields">
+                        <h4>Fields</h4>
+                        <button class="btn btn-link" type="button" (click)="addField()">Add Field</button>
+                        <mat-error *ngIf="fields.errors?.duplicateValue">
+                            Duplicate/empty tags are not allowed.
+                        </mat-error>
+                        <div *ngFor="let item of fields.controls; let i = index">
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <mat-form-field>
+                                        <select matNativeControl formControlName="{{i}}" id="field" name="field">
+                                            <ng-container *ngFor="let field of field_options">
+                                                <!-- <option [value]='{"tag": "{{type}}", "tag_type": "field"}'> -->
+                                                <option [value]="field">
+                                                    {{field}}
+                                                </option>
+                                            </ng-container>
+                                        </select>
+                                        <mat-error *ngIf="fields.controls[i].errors?.required">
+                                            Empty tags are not allowed!
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button class="btn btn-link" type="button" (click)="delField(i)">Remove</button>
+                                </div>
+                            </div>     
+                        </div>
+                    </div>
+                <button mat-button type="submit" [disabled]="!profileForm.valid">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="container border rounded" style="width:75%;padding:1em;">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-6 my-auto">
+                <h3>{{this.role | titlecase}} Login</h3>
+            </div>
+            <div class="col-sm-6 my-auto">
+                <button class="btn btn-link float-sm-right"  (click)="changeRole()">
+                        Login As {{this.change | titlecase}}
+                </button>
+            </div>
+        </div>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div *ngIf="invalid" class="alert alert-danger">
+                Invalid email and/or password.
+            </div>
+            <div class="form-group form-group-lg">
+                <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <mat-form-field style="width:100%">
+                        <mat-label>Email:</mat-label>
+                        <input matInput class="form-control" type="text" id="email" formControlName="email" />
+                            <mat-error *ngIf="email.errors?.required">
+                                This is a required field.
+                            </mat-error>
+                            <mat-error *ngIf="email.errors?.email">
+                                Invalid email format.
+                            </mat-error>
+                    </mat-form-field>
+                    <br />
+                    <mat-form-field style="width:100%;">
+                        <mat-label>Password:</mat-label>
+                        <input matInput class="form-control" type="password" id="password" formControlName="password" />
+                            <mat-error *ngIf="password.errors?.required">
+                                This is a required field.
+                            </mat-error>
+                            <mat-error *ngIf="password.errors?.minlength && !password.errors?.required">
+                                Password must be 8 or more characters long.
+                            </mat-error>
+                    </mat-form-field>
+                    <br />
+                    <button class="btn btn-primary btn-log" type="submit" [disabled]="!loginForm.valid">Submit</button>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p>Don't have an account? <a [routerLink]="['/register', role]">Register Here</a></p>
+        </div>
+    </div>
+</div>
+    

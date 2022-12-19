@@ -1,0 +1,67 @@
+<div class="container-fluid">
+    <div class="page-header">
+        <h2>Job Board</h2>
+    </div>
+    <div *ngIf="!loading">
+        <div *ngIf="jobs.length > 0">
+            <div class="row">
+                <div class="col">
+                    <mat-form-field> 
+                        <mat-select [(value)]="sortValue" (selectionChange)="selected($event)" name="sort" disableOptionCentering>
+                            <mat-option value="Sort: Alphabetical A to Z">Alphabetical A to Z</mat-option>
+                            <mat-option value="Sort: Alphabetical Z to A">Alphabetical Z to A</mat-option>
+                            <mat-option value="Sort: Latest to Oldest">Latest to Oldest</mat-option>
+                            <mat-option value="Sort: Oldest to Latest">Oldest to Latest</mat-option>
+                            <mat-option value="Sort: Nearest Deadline">Nearest Deadline</mat-option>
+                            <mat-option value="Sort: Farthest Deadline">Farthest Deadline</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="list-group">
+                        <ng-container *ngFor="let job of jobs">
+                            <div class="list-group-item rounded-0">
+                                <app-job-ad [job]=job></app-job-ad>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                        <button type="button" class="btn btn-outline-primary" (click)="loadPage(1)" [disabled]='onFirstPage'>First</button>
+                        <button type="button" class="btn btn-outline-primary" (click)="loadPage(+page-1)" [disabled]='onFirstPage'>Previous</button>
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{page}}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <ng-container *ngFor='let item of [].constructor(pageCount); let i = index'>
+                                    <a class="dropdown-item" (click)="loadPage(i+1)">{{i+1}}</a>  
+                                </ng-container>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline-primary" (click)="loadPage(+page+1)" [disabled]='onLastPage'>Next</button>
+                        <button type="button" class="btn btn-outline-primary" (click)="loadPage(pagecount)" [disabled]='onLastPage'>Last</button>
+                    </div>  
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col">
+                    <mat-paginator #paginator [length]="count"
+                        [pageSize]="20"
+                        [pageIndex]="page - 1"
+                        (page)= "pageEvent = loadPage($event)"
+                    ></mat-paginator>
+                </div>
+            </div> -->
+        </div>
+        <div *ngIf="jobs.length === 0">
+            <p>No jobs posted.</p>
+        </div>
+    </div>
+</div>

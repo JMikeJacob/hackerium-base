@@ -1,0 +1,75 @@
+<div class="container border" style="padding:1em;">
+    <div class="page-header">
+      <h2>Applicant Registration</h2>
+      <hr/>
+    </div>
+    <div *ngIf="account_conflict" class="alert alert-danger">
+        <div class="row">
+            <div class="col">
+                Account already registered.
+            </div>
+        </div>
+    </div>
+       
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <form [formGroup]="seekerForm" (ngSubmit)="onSubmit()">
+                    <div class="form-row">
+                        <div class="col-sm-6">
+                            <mat-form-field>
+                                <mat-label>First Name:</mat-label>
+                                <input matInput class="form-control" type="text" id="firstname" placeholder="First Name" formControlName="firstname" required />
+                                    <mat-error *ngIf="firstname.errors?.required">
+                                        This is a required field..
+                                    </mat-error>
+                            </mat-form-field>   
+                        </div>
+                        <div class="col-sm-6">
+                            <mat-form-field>
+                                <mat-label>Last Name:</mat-label>
+                                <input matInput class="form-control" type="text" id="lastname" placeholder="Last Name" formControlName="lastname" required/>
+                                    <mat-error *ngIf="lastname.errors?.required">
+                                            This is a required field..
+                                    </mat-error>
+                                </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-6">
+                            <mat-form-field>
+                                <mat-label>Email:</mat-label>
+                                <input matInput class="form-control" type="text" id="email" placeholder="example: email@domain.com" formControlName="email" required/>
+                                    <mat-error *ngIf="email.errors?.required">
+                                            This is a required field.
+                                    </mat-error>
+                                    <mat-error *ngIf="email.errors?.email">
+                                        Invalid email format.
+                                    </mat-error>
+                                </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field>
+                                <mat-label>Password:</mat-label>
+                                <input matInput class="form-control" type="password" id="password" formControlName="password" required/>
+                                    <mat-error *ngIf="password.errors?.required">
+                                        This is a required field.
+                                    </mat-error>
+                                    <mat-error *ngIf="password.errors?.minlength && !password.errors?.required">
+                                        Must be 8 or more characters.
+                                    </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" type="submit" [disabled]="!seekerForm.valid">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p>Already have an account? <a routerLink="/login">Log In</a></p>
+        </div>
+    </div>
+</div>

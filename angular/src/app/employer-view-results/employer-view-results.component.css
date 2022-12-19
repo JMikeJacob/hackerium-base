@@ -1,0 +1,35 @@
+.description {
+    white-space: pre;
+}
+
+.qualifications {
+    white-space: pre;
+}
+
+.container-fluid {
+    padding:2em;
+    background-color:white
+}
+
+.border {
+    background-color: white
+}
+
+.script-row {
+    height: 20em;
+    overflow: scroll;
+}
+
+.body-row {
+    height: 20em;
+    overflow: scroll;
+}
+
+.test-case-row {
+    height: 10em;
+}
+
+.test-case-column {
+    height: 10em;
+    overflow: scroll;
+}

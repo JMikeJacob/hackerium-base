@@ -1,0 +1,78 @@
+<div class="container border" style="padding:2em;">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-6 my-auto">
+                <h3>My Account</h3>
+            </div>
+            <div class="col-sm-6 my-auto">
+                <button class="btn btn-link float-sm-right"  (click)="onEdit()" *ngIf="!editing">
+                    Edit Account Details
+                </button>
+                <button class="btn btn-link float-sm-right"  (click)="cancelEdit()" *ngIf="editing">
+                    Cancel Edit
+                </button>
+            </div>
+        </div>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="col">
+            <div *ngIf="invalid" class="alert alert-success">
+                Credentials updated!
+            </div>
+            <form [formGroup]="employerForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field>
+                            <mat-label>First Name:</mat-label>
+                            <input matInput class="form-control" type="text" id="firstname" formControlName="firstname" required />
+                                <mat-error *ngIf="firstname.errors?.required">
+                                    This is a required field.
+                                </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field>
+                            <mat-label>Last Name:</mat-label>
+                            <input matInput class="form-control" type="text" id="lastname" formControlName="lastname" required />
+                                <mat-error *ngIf="lastname.errors?.required">
+                                        This is a required field.
+                                </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field>
+                            <mat-label>Email:</mat-label>
+                            <input matInput class="form-control" type="text" id="email" formControlName="email" required/>
+                            <mat-error *ngIf="email.errors?.required">
+                                This is a required field.
+                            </mat-error>
+                            <mat-error *ngIf="email.errors?.email">
+                                Invalid email.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field>
+                            <mat-label>Password:</mat-label>
+                            <input matInput class="form-control" type="password" id="password" formControlName="password" required/>
+                            <mat-error *ngIf="password.errors?.required">
+                                This is a required field.
+                            </mat-error>
+                            <mat-error *ngIf="password.errors?.minlength && !password.errors?.required">
+                                Password must be 8 or more characters long.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button mat-button type="submit" [disabled]="!employerForm.valid">Submit</button>
+                    </div>
+                </div> 
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="page-header">
+        <button class="btn btn-info" (click)="goBack()">
+            <span *ngIf="!from || from===''">Return to Job Board</span>
+            <span *ngIf="from==='post'">Return to Job Post</span>
+        </button>
+    </div>
+    <div *ngIf="!loading">
+        <div *ngIf="no_company">
+            <div class="row">
+                <div class="col">
+                    Company does not exist.
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!no_company">
+            <div class="row border border-black" style="padding:1em;margin:1em;">
+                <div class="col-sm-4">
+                    <div *ngIf="pic_url !== 'none'">
+                        <div *ngIf="pic_url !== 'none'">
+                            <img img class="img img-responsive img-thumbnail" (error)="updateUrl($event)" style="width:180px;height:180px;"  [src]="pic_url" alt="profile picture" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <h4>{{company.name}}</h4>
+                    <p>{{company.website}}<br/>
+                    {{company.location}}</p>
+                    <p><span *ngIf="company.establishment_date">Established on {{company.establishment_date | date}}</span></p>
+                </div>
+            </div>
+            <div class="row border border-black" style="padding:1em;margin:1em;">
+                <div class="col">
+                    <h5>About the Company</h5>
+                    <div class = "description">
+                        <quill-view [content]="company.description"></quill-view>
+                    </div>
+                </div>
+            </div>
+            <div class="row border border-black" style="padding:1em;margin:1em;">
+                <div class="col">
+                    <div class = "contact">
+                        <p>Email: {{company.email}}</p>
+                        <p>Contact #: {{company.contact_no}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

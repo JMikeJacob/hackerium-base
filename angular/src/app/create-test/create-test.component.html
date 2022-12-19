@@ -1,0 +1,221 @@
+<div class="container border" style="padding:2em;">
+    <div class="page-header">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-secondary ml-auto" (click)="goBack()">Cancel</button>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <h3>Create Test</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+       <div class="col">
+            <form [formGroup]="testForm" (ngSubmit)="onSubmit()">
+                <div class="form-group row">
+                    <label for="test-title" class="col-sm-2 col-form-label">Title</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" [ngClass]="testTitle.touched && testTitle.errors?.required ? 'is-invalid' : ''" id="test-title" placeholder="Test Title" formControlName="testTitle" required />
+                        <small class="text-danger" *ngIf="testTitle.touched && testTitle.errors?.required">Required fields should not be left blank!</small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="test-difficulty" class="col-sm-2 col-form-label">Difficulty</label>
+                    <div class="col-sm-10">
+                        <select id="test-difficulty" class="form-control" [ngClass]="testDifficulty.touced && testDifficulty.errors?.required ? 'is-invalid' : ''" formControlName="testDifficulty" placeholder="Choose difficulty..." required>
+                            <option>Easy</option>
+                            <option>Medium</option>
+                            <option>Hard</option>
+                        </select>
+                        <small class="text-danger" *ngIf="testDifficulty.touched && testDifficulty.errors?.required">Required fields should not be left blank!</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="test-time" class="col-sm-2 col-form-label">Execution Time (ms)</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" id="test-time" [ngClass]="testExecutionTime.touched && testExecutionTime.errors ? 'is-invalid' : ''" formControlName="testExecutionTime" placeholder="Execution Time" min="1" required />
+                        <small id="test-time-helpline" [ngClass]="testExecutionTime.touched && testExecutionTime.errors ? 'text-danger' : 'text-muted'">
+                            Must be between at least 1.
+                        </small><br/>
+                        <small class="text-danger" *ngIf="testExecutionTime.touched && testExecutionTime.errors?.required">Required fields should not be left blank!</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="test-body" class="col-sm-2 col-form-label">Problem Text</label>
+                    <div class="col-sm-10">
+                        <quill-editor
+                            #testQuill
+                            [styles]="{'height':'10em'}"
+                            [formControl]="testForm.controls['testBody']"
+                        ></quill-editor>
+                        <small class="text-danger" *ngIf="testBody.touched && testBody.errors?.required">Required fields should not be left blank!</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="test-body" class="col-sm-2 col-form-label">Function Description</label>
+                    <div class="col-sm-10">
+                        <quill-editor
+                            #functionQuill
+                            [styles]="{'height':'10em'}"
+                            [formControl]="testForm.controls['testFunctionDesc']"
+                        ></quill-editor>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="test-body" class="col-sm-2 col-form-label">Constraints</label>
+                    <div class="col-sm-10">
+                        <quill-editor
+                            #constraintQuill
+                            [styles]="{'height':'8em'}"
+                            [formControl]="testForm.controls['testConstraints']"
+                        ></quill-editor>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="test-body" class="col-sm-2 col-form-label">Input Format for Custom Testing</label>
+                    <div class="col-sm-10">
+                        <quill-editor
+                            #inputQuill
+                            [styles]="{'height':'8em'}"
+                            [formControl]="testForm.controls['testInputFormat']"
+                        ></quill-editor>
+                    </div>
+                </div>
+                <div formArrayName="testSampleCases" class="form-group row">
+                    <label for="test-sample-cases" class="col-sm-2 col-form-label">Sample Cases</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col">
+                                <div [formGroupName]="i" *ngFor="let item of testSampleCases.controls; let i = index">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label>Sample Case {{i+1}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-row">
+                                                <div class="col-sm-6">
+                                                    <label for="sample-case-input">Input</label>
+                                                    <textarea class="form-control" formControlName="sampleCaseInput" id="sample-case-input" name="sample-case-input"></textarea>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label for="sample-case-output">Output</label>
+                                                    <textarea class="form-control" formControlName="sampleCaseOutput" id="sample-case-output" name="sample-case-output"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="sample-explanation-{{i+1}}">Explanation</label>
+                                            <textarea class="form-control" formControlName="sampleExplanation" id="sample-explanation-{{i+1}}" name="sample-explanation"></textarea>
+                                        </div>
+                                    </div>
+                                    <hr *ngIf="testSampleCases.controls.length - 1 > i"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div formArrayName="testParameters" class="form-group row">
+                    <label for="test-parameters" class="col-sm-2 col-form-label">Input Parameters</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col">
+                                <div [formGroupName]="i" *ngFor="let item of testParameters.controls; let i = index">
+                                    <div class="form-row">
+                                        <div class="col-auto">
+                                            <label class="sr-only" for="inputParameterName">parameterName</label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Name</div>
+                                                </div>
+                                                <input type="text" class="form-control" formControlName="testParameterName" id="inputParameterName" placeholder="parameterName" />
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label class="sr-only" for="inputParameterType">parameterType</label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Data Type</div>
+                                                </div>
+                                                <select class="form-control" formControlName="testParameterType" id="inputParameterType" value="number">
+                                                    <option selected>number</option>
+                                                    <option>string</option>
+                                                    <option>array</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="button" class="close" aria-label="Close" (click)="deleteTestParameter(i)">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-link" type="button" (click)="addTestParameter()">Add Input Parameter</button>
+                                <small [ngClass]="testParameters.touched && testParameters.errors?.required ? 'text-danger' : 'text-muted'" *ngIf="testParameters.errors?.required">Must have at least one input parameter.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div formArrayName="testCases" class="form-group row">
+                    <label for="test-cases" class="col-sm-2 col-form-label">Test Cases</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col">
+                                <div [formGroupName]="i" *ngFor="let item of testCases.controls; let i = index">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <label>Case {{i}}</label>
+                                            <br/>
+                                            <div>
+                                                <label class="form-check-label text-muted" for="hiddenCheck">Hidden</label>
+                                                <input type="checkbox" class="form-check-input-reverse" formControlName="testCaseHidden" id="hiddenCheck" />
+                                            </div>
+                                            <a href="javascript:void(0)" (click)="deleteTestCase(i)" class="text-decoration-none" style="color:red">Remove</a>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <div class="form-row">
+                                                <div class="col-sm-6">
+                                                    <label for="test-case-input">Input</label>
+                                                    <textarea class="form-control" formControlName="testCaseInputRaw" id="test-case-input" name="test-case-input" required></textarea>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label for="test-case-input">Output</label>
+                                                    <textarea class="form-control" formControlName="testCaseOutputRaw" id="test-case-output" name="test-case-output" required></textarea>
+                                                </div>
+                                            </div>
+                                            <small class="text-danger" *ngIf="testCases.controls[i].touched && testCases.controls[i].errors?.required">Empty test cases are not allowed!</small>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-link" type="button" (click)="addTestCase()">Add Test Case</button>
+                                <small [ngClass]="testCases.touched && testCases.errors?.required ? 'text-danger' : 'text-muted'" *ngIf="testCases.errors?.required">Must have at least one test case.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary" [disabled]="!testForm.valid">Submit</button>
+                    </div>
+                </div>
+            </form>
+       </div>
+    </div>
+</div>

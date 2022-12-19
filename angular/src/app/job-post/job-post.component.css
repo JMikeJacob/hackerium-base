@@ -1,0 +1,15 @@
+.description {
+    white-space: pre;
+}
+
+.qualifications {
+    white-space: pre;
+}
+
+.container {
+    padding:2em;
+}
+
+.border {
+    background-color: white
+}

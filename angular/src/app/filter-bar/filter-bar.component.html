@@ -1,0 +1,90 @@
+<!-- FILTERS -->    
+<div class="container-fluid">
+    <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="button-group">
+                    <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">Fields <span class="caret"></span></button>
+                    <div formArrayName="field_filters">
+                        <ul class="dropdown-menu multi-column columns-2">
+                            <div class="row">
+                                <div class="col">
+                                    <li style="padding:0.4em"><a class="small" href="javascript:;" (click)="changeAllFields()">All Fields</a></li>
+                                    <li class="divider"></li>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="multi-column-dropdown">
+                                        <li style="padding:0.4em"><a class="small" href="javascript:;" data-value="level" tabIndex="-1"><input type="checkbox" name="all-fields" style="padding:0.1em">&nbsp;All Fields</a></li>
+                                        <li class="divider"></li>
+                                        <li style="padding:0.4em" *ngFor="let field of fields.slice(0, field_count/2 - 1); let i = index"><a class="small" href="javascript:;" data-value="Fields" tabIndex="-1"><input type="checkbox" [formControlName]="fields.indexOf(field)" style="padding:0.1em" name="field_{{i}}" (change)="checkValueField($event)">&nbsp;{{field}}</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="multi-column-dropdown">
+                                        <li style="padding:0.4em" *ngFor="let field of fields.slice(field_count/2, field_count-1)"><a class="small" href="javascript:;" data-value="field" tabIndex="-1"><input type="checkbox" [formControlName]="fields.indexOf(field)" style="padding:0.1em" name="field_{{fields.indexOf(field)}}" (change)="checkValueField($event)">&nbsp;{{field}}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="button-group">
+                    <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">Levels <span class="caret"></span></button>
+                    <ul class="dropdown-menu multi-column-dropdown">
+                        <div formArrayName="level_filters">
+                            <li style="padding:0.4em"><a class="small" href="javascript:;" (click)="changeAllLevels()">All Levels</a></li>
+                            <li class="divider"></li>
+                            <li style="padding:0.4em" *ngFor="let level of level_filters.controls; let i = index"><a class="small" href="javascript:;" data-value="level" tabIndex="-1"><input type="checkbox" [formControlName]="i" name="level_{{i}}" style="padding:0.1em" (change)="checkValueLevel($event)">&nbsp;{{levels[i]}}</a></li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="button-group">
+                    <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">Types <span class="caret"></span></button>
+                    <ul class="dropdown-menu multi-column-dropdown">
+                        <li style="padding:0.4em"><a class="small" href="javascript:;" (click)="changeAllTypes()">All Types</a></li>
+                        <li class="divider"></li>
+                        <div formArrayName="type_filters">
+                            <li style="padding:0.4em" *ngFor="let type of type_filters.controls; let i = index"><a class="small" href="javascript:;" data-value="level" tabIndex="-1"><input type="checkbox" [formControlName]="i" style="padding:0.1em" name="type_{{i}}" (change)="checkValueType($event)">&nbsp;{{types[i]}}</a></li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="float-sm-right">
+                    <button class="btn btn-info" type="submit">Apply</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col">
+            <mat-chip-list #chiplist>
+                <ng-container *ngFor="let tag of displayLevels; let i = index">
+                    <mat-chip *ngIf="tag" name="i" [removable]="true" (removed)="removeLevel(i)">
+                        {{tag}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                </ng-container>
+                <ng-container *ngFor="let tag of displayTypes; let i = index">
+                    <mat-chip *ngIf="tag" name="i" [removable]="true" (removed)="removeType(i)">
+                        {{tag}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                </ng-container>
+                <ng-container *ngFor="let tag of displayFields; let i = index">
+                    <mat-chip *ngIf="tag" name="i" [removable]="true" (removed)="removeField(i)">
+                        {{tag}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                </ng-container>
+            </mat-chip-list>
+        </div>
+    </div>
+</div>
+    <!-- FILTER END-->

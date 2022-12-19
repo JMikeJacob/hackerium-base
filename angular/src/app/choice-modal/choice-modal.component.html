@@ -1,0 +1,24 @@
+<div class="modal-content">
+    <div class="modal-header">
+        {{dialog.header}}
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col">
+                <p>{{dialog.message}}</p>
+            </div>
+        </div>
+        <div *ngIf="dialog.mode==='apply'">
+            <div class="row">
+                <div class="col">
+                    <p>{{dialog.job_name}}</p>
+                    <p>{{dialog.company_name}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" (click)="no()">No</button>
+        <button type="button" class="btn btn-outline-success" (click)="yes()">Yes</button>
+    </div>
+</div>

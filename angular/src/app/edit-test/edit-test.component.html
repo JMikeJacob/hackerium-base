@@ -1,0 +1,100 @@
+<!-- <div class="container border" style="padding:2em;">
+    <div class="page-header">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-secondary ml-auto" (click)="goBack()">Cancel</button>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <h3>Edit Test</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+       <div class="col">
+            <form [formGroup]="testForm" (ngSubmit)="onSubmit()">
+                <div class="form-group row">
+                    <label for="test-title" class="col-sm-2 col-form-label">Title</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" [ngClass]="testTitle.touched && testTitle.errors?.required ? 'is-invalid' : ''" id="test-title" placeholder="Test Title" formControlName="testTitle" required />
+                        <small class="text-danger" *ngIf="testTitle.touched && testTitle.errors?.required">Required fields should not be left blank!</small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="test-difficulty" class="col-sm-2 col-form-label">Difficulty</label>
+                    <div class="col-sm-10">
+                        <select id="test-difficulty" class="form-control" [ngClass]="testDifficulty.touced && testDifficulty.errors?.required ? 'is-invalid' : ''" formControlName="testDifficulty" placeholder="Choose difficulty..." required>
+                            <option>Easy</option>
+                            <option>Medium</option>
+                            <option>Hard</option>
+                        </select>
+                        <small class="text-danger" *ngIf="testDifficulty.touched && testDifficulty.errors?.required">Required fields should not be left blank!</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="test-total" class="col-sm-2 col-form-label">Total Score</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" id="test-total" [ngClass]="testTotal.touched && testTotal.errors ? 'is-invalid' : ''" formControlName="testTotal" placeholder="Score" min="1" max="100" required />
+                        <small id="test-total-helpline" [ngClass]="testTotal.touched && testTotal.errors ? 'text-danger' : 'text-muted'">
+                            Must be between at least 1.
+                        </small><br/>
+                        <small class="text-danger" *ngIf="testTotal.touched && testTotal.errors?.required">Required fields should not be left blank!</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="test-body" class="col-sm-2 col-form-label">Problem Text</label>
+                    <div class="col-sm-10">
+                        <quill-editor
+                            #testQuill
+                            [styles]="{'height':'15em'}"
+                            [formControl]="testForm.controls['testBody']"
+                        ></quill-editor>
+                        <small class="text-danger" *ngIf="testBody.touched && testBody.errors?.required">Required fields should not be left blank!</small>
+                    </div>
+                </div>
+                <div formArrayName="testCases" class="form-group row">
+                    <label for="test-cases" class="col-sm-2 col-form-label">Test Cases</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col">
+                                <div [formGroupName]="i" *ngFor="let item of testCases.controls; let i = index">
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <div class="form-row">
+                                                <div class="col-sm-6">
+                                                    <label for="test-case-input">Input</label>
+                                                    <input type="text" class="form-control" formControlName="testCaseInput" id="test-case-input" name="test-case-input" required/>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label for="test-case-input">Output</label>
+                                                    <input type="text" class="form-control" formControlName="testCaseOutput" id="test-case-output" name="test-case-output" required/>
+                                                </div>
+                                            </div>
+                                            <small class="text-danger" *ngIf="testCases.controls[i].touched && testCases.controls[i].errors?.required">Empty test cases are not allowed!</small>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button class="btn btn-link align-middle" type="button" (click)="deleteTestCase(i)">Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-link" type="button" (click)="addTestCase()">Add Test Case</button>
+                                <small [ngClass]="testCases.touched && testCases.errors?.required ? 'text-danger' : 'text-muted'" *ngIf="testCases.errors?.required">Must have at least one test case.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <button type="submit" class="btn btn-primary" [disabled]="!testForm.valid">Submit</button>
+                    <button class="btn btn-info" (click)="testSubmit()"> Test Submit</button>
+                </div>
+            </form>
+       </div>
+    </div>
+</div> -->

@@ -1,0 +1,52 @@
+.btn {
+    margin:1em;
+}
+
+.description {
+    white-space: pre;
+}
+
+.qualifications {
+    white-space: pre;
+}
+
+.container-fluid {
+    padding:2em;
+    background-color:white
+}
+
+.border {
+    background-color: white
+}
+
+.sampleInput {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8em;
+    background-color: #C2EBED;
+    padding: 10px;
+    border: none;
+    resize: none;
+    width: 100%;
+    height: 150px;
+}
+
+.sampleOutput {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8em;
+    background-color: #C2EBED;
+    padding: 10px;
+    border: none;
+    resize: none;
+    width: 100%;
+    height: 150px;
+}
+
+.sampleExplanation {
+    background-color: white;
+    font-size: 0.8em;
+    padding: 4px;
+    border: none;
+    resize: none;
+    width: 100%;
+    height: 150px;
+}

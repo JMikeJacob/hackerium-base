@@ -1,0 +1,13 @@
+.container-fluid {
+    background-color: white;
+    padding: 1.5em 2em;
+}
+
+.container-fluid:hover {
+    background-color: #f5f5f5;
+}
+
+.tags {
+    font-size: 6;
+    color: gray;
+}

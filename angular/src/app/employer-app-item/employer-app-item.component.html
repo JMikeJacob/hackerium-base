@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 my-auto">
+                <p><a routerLink="../../seekers/{{app.user_id}}">{{app.last_name}}, {{app.first_name}}</a></p>
+                <p><a routerLink="../../jobs/post/{{app.job_id}}">{{app.job_name}}</a></p>
+                <p>Applied on {{+app.date_posted * 1000 | date}}</p>
+        </div>
+        <div class="col-sm-3 text-center my-auto" style="margin-top:2em;">
+                <div *ngIf="!post_closed">
+                    <span [ngClass]="status" class="align-text-middle" >{{status | uppercase}}</span>
+                </div>
+                <div *ngIf="post_closed">
+                    <span class="closed align-text-middle" >CLOSED</span>
+                </div>
+        </div>
+        <div class="col-sm-3 text-center my-auto" style="margin-top:2em;">
+            <div *ngIf="status==='pending'">
+                <div *ngIf="!testLoading">
+                    <button class="btn btn-primary" *ngIf="status==='pending'" (click)="sendTest()">Send Test</button>
+                    <br/>
+                    <br/>
+                    <select class="form-control" (change)="selectOption($event.target.value)">
+                            <option [value]="test.test_id" *ngFor="let test of tests">{{test.test_title}}</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn btn-primary" *ngIf="status==='testing'" [disabled]="true">Test Sent</button>
+            <button class="btn btn-primary" *ngIf="status==='reviewing' || status==='accepted' || status==='rejected' || status==='interviewing'" [routerLink]="['../test/results/', app.app_id]" [queryParams]="{testid:app.test_id, appid:app.app_id}">View Results</button>
+            <!-- <button class="btn btn-primary" *ngIf="status==='reviewing' && !app.test_score" [disabled]="true">Processing Solution</button> -->
+            <!-- <h6 class="text-muted">Test: Test 1</h6> -->
+            <!-- <h6 class="text-muted">Score: 100/100</h6>
+            <h6 class="text-muted">Time: 2 hours</h6> -->
+        </div>
+        <div class="col-sm-3 my-auto" style="margin-top:2em;">
+            <div class="btn-group-lg" role="group" aria-label="accept_reject">
+                <button class="btn btn-success btn-block" *ngIf="status==='accepted'" [disabled]="true">Accepted</button>
+                <button class="btn btn-danger btn-block" *ngIf="status==='rejected'" [disabled]="true">Rejected</button>
+                <button class="btn btn-success btn-block" *ngIf="(status==='pending' || status==='reviewing' )&& !post_closed" (click)="accept()">Accept</button>                
+                <button class="btn btn-danger btn-block" *ngIf="(status==='pending' || status==='reviewing' )&& !post_closed" (click)="reject()">Reject</button>
+                <button class="btn btn-info btn-block" *ngIf="post_closed" [disabled]="true">Closed</button>
+                <button class="btn btn-info" *ngIf="status==='interviewing'" routerLink="/interview" [queryParams]="{appid:app.app_id}">Go to Interview</button>
+            </div>
+        </div>
+    </div>
+</div>
